@@ -9,7 +9,7 @@ namespace TNRD.CodeGeneration.Layers
 {
     public class LayerGenerator : ICodeGenerator
     {
-        [MenuItem("TNRD/Code Generation/Layers")]
+        [MenuItem("Tools/Code Generation/Layers")]
         private static void Execute()
         {
             LayerGenerator generator = new LayerGenerator();
@@ -22,9 +22,9 @@ namespace TNRD.CodeGeneration.Layers
                 .OrderBy(x => x)
                 .ToArray();
 
-            CodeCompileUnit codeCompileUnit = new CodeCompileUnit();
-            CodeNamespace codeNamespace = new CodeNamespace();
-            CodeTypeDeclaration classDeclaration = new CodeTypeDeclaration("Layers")
+            CodeCompileUnit codeCompileUnit = new();
+            CodeNamespace codeNamespace = new();
+            CodeTypeDeclaration classDeclaration = new("Layers")
             {
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
@@ -37,13 +37,13 @@ namespace TNRD.CodeGeneration.Layers
                 string maskName = layerName + "_MASK";
                 int layerValue = LayerMask.NameToLayer(layer);
 
-                CodeMemberField layerField = new CodeMemberField(typeof(int), layerName)
+                CodeMemberField layerField = new(typeof(int), layerName)
                 {
                     Attributes = MemberAttributes.Public | MemberAttributes.Const,
                     InitExpression = new CodePrimitiveExpression(layerValue)
                 };
 
-                CodeMemberField maskField = new CodeMemberField(typeof(int), maskName)
+                CodeMemberField maskField = new(typeof(int), maskName)
                 {
                     Attributes = MemberAttributes.Public | MemberAttributes.Const,
                     InitExpression = new CodePrimitiveExpression(1 << layerValue)

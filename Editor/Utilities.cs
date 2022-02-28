@@ -12,7 +12,7 @@ namespace TNRD.CodeGeneration
 {
     public static class Utilities
     {
-        [MenuItem("TNRD/Code Generation/Generate All", false, int.MaxValue)]
+        [MenuItem("Tools/Code Generation/Generate All", false, int.MaxValue)]
         private static void GenerateAll()
         {
             Type typeDefinition = typeof(ICodeGenerator);
@@ -28,7 +28,7 @@ namespace TNRD.CodeGeneration
                 if (type.IsAbstract)
                     continue;
 
-                ICodeGenerator instance = (ICodeGenerator) Activator.CreateInstance(type);
+                ICodeGenerator instance = (ICodeGenerator)Activator.CreateInstance(type);
                 instance.Generate();
             }
         }
@@ -66,8 +66,7 @@ namespace TNRD.CodeGeneration
             {
                 if (index == name.Length - 1)
                 {
-                    name = name.Remove(index, 1);
-                    return name;
+                    return name.Remove(index, 1);
                 }
 
                 string upperChar = char.ToUpper(name[index + 1]).ToString();
