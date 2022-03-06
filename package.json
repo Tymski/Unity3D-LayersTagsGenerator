@@ -1,9 +1,9 @@
 {
-  "name": "net.tnrd.layertagsgenerator",
+  "name": "com.opensource.layertagsgenerator",
   "displayName": "Layer Tags Generator",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "unity": "2019.1",
-  "description": "A simple tool to generate files that contain the project's Layers and Tags.",
+  "description": "A simple tool to generate C# code files that contain the project's Layers and Tags strings.",
   "keywords": [
     "layer",
     "layers",
@@ -12,8 +12,6 @@
     "generator"
   ],
   "author": {
-    "name": "TNRD",
-    "email": "unity3d@tnrd.net",
-    "url": "https://www.tnrd.net"
+    "name": "Open Source"
   }
 }
