@@ -12,7 +12,7 @@ namespace TNRD.CodeGeneration.Tags
         [MenuItem("Tools/Code Generation/Tags")]
         private static void Execute()
         {
-            TagGenerator generator = new();
+            var generator = new TagGenerator();
             generator.Generate();
         }
 
@@ -22,9 +22,9 @@ namespace TNRD.CodeGeneration.Tags
                 .OrderBy(x => x)
                 .ToArray();
 
-            CodeCompileUnit compileUnit = new();
-            CodeNamespace codeNamespace = new();
-            CodeTypeDeclaration classDeclaration = new("Tags")
+            var compileUnit = new CodeCompileUnit();
+            var codeNamespace = new CodeNamespace();
+            var codeTypeDeclaration = new CodeTypeDeclaration("Tags")
             {
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
@@ -32,17 +32,17 @@ namespace TNRD.CodeGeneration.Tags
 
             foreach (string tag in tags)
             {
-                CodeMemberField field = new()
+                var field = new CodeMemberField()
                 {
                     Attributes = MemberAttributes.Public | MemberAttributes.Const,
                     Name = Utilities.GetScreamName(tag),
                     Type = new CodeTypeReference(typeof(string)),
                     InitExpression = new CodePrimitiveExpression(tag)
                 };
-                classDeclaration.Members.Add(field);
+                codeTypeDeclaration.Members.Add(field);
             }
 
-            codeNamespace.Types.Add(classDeclaration);
+            codeNamespace.Types.Add(codeTypeDeclaration);
             compileUnit.Namespaces.Add(codeNamespace);
 
             Utilities.GenerateToFile(compileUnit, Application.dataPath + "/Generated", "Tags.cs");

@@ -12,7 +12,7 @@ namespace TNRD.CodeGeneration.Layers
         [MenuItem("Tools/Code Generation/Layers")]
         private static void Execute()
         {
-            LayerGenerator generator = new LayerGenerator();
+            var generator = new LayerGenerator();
             generator.Generate();
         }
 
@@ -22,9 +22,9 @@ namespace TNRD.CodeGeneration.Layers
                 .OrderBy(x => x)
                 .ToArray();
 
-            CodeCompileUnit codeCompileUnit = new();
-            CodeNamespace codeNamespace = new();
-            CodeTypeDeclaration classDeclaration = new("Layers")
+            var codeCompileUnit = new CodeCompileUnit();
+            var codeNamespace = new CodeNamespace();
+            var codeTypeDeclaration = new CodeTypeDeclaration("Layers")
             {
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
@@ -37,23 +37,23 @@ namespace TNRD.CodeGeneration.Layers
                 string maskName = layerName + "_MASK";
                 int layerValue = LayerMask.NameToLayer(layer);
 
-                CodeMemberField layerField = new(typeof(int), layerName)
+                CodeMemberField layerField = new CodeMemberField(typeof(int), layerName)
                 {
                     Attributes = MemberAttributes.Public | MemberAttributes.Const,
                     InitExpression = new CodePrimitiveExpression(layerValue)
                 };
 
-                CodeMemberField maskField = new(typeof(int), maskName)
+                CodeMemberField maskField = new CodeMemberField(typeof(int), maskName)
                 {
                     Attributes = MemberAttributes.Public | MemberAttributes.Const,
                     InitExpression = new CodePrimitiveExpression(1 << layerValue)
                 };
 
-                classDeclaration.Members.Add(layerField);
-                classDeclaration.Members.Add(maskField);
+                codeTypeDeclaration.Members.Add(layerField);
+                codeTypeDeclaration.Members.Add(maskField);
             }
 
-            codeNamespace.Types.Add(classDeclaration);
+            codeNamespace.Types.Add(codeTypeDeclaration);
             codeCompileUnit.Namespaces.Add(codeNamespace);
 
             Utilities.GenerateToFile(codeCompileUnit, Application.dataPath + "/Generated", "Layers.cs");
