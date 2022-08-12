@@ -33,7 +33,8 @@ namespace TNRD.CodeGeneration.Layers
             for (int i = 0; i < layers.Length; i++)
             {
                 string layer = layers[i];
-                string layerName = Utilities.GetScreamName(layer);
+                // string layerName = Utilities.GetScreamName(layer);
+                string layerName = layer.Replace(" ", "");
                 string maskName = layerName + "_MASK";
                 int layerValue = LayerMask.NameToLayer(layer);
 

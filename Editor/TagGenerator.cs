@@ -35,7 +35,8 @@ namespace TNRD.CodeGeneration.Tags
                 var field = new CodeMemberField()
                 {
                     Attributes = MemberAttributes.Public | MemberAttributes.Const,
-                    Name = Utilities.GetScreamName(tag),
+                    // Name = Utilities.GetScreamName(tag),
+                    Name = tag.Replace(" ", ""),
                     Type = new CodeTypeReference(typeof(string)),
                     InitExpression = new CodePrimitiveExpression(tag)
                 };
